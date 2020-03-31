@@ -15,14 +15,6 @@ class Charts extends React.Component {
 
     componentDidMount() {
         console.log('props', this.props.data)
-        axios.get('https://raw.githubusercontent.com/kirillzorin/internship2020/master/data.json')
-            .then(response => {
-                console.log(response.data);
-
-                this.setState({
-                    data: response.data
-                });
-            })
     }
 
     parseData = () => {

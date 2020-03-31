@@ -9,7 +9,7 @@ let initialState = {
 const chartsReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_DATA: {
-            console.log('setting data', action.data)
+            //console.log('setting data', action.data)
             return { data: action.data }
         }
         
@@ -23,7 +23,7 @@ export const setData = (data) => ({type:SET_DATA, data})
 export const getData = () => {
     return (dispatch) => {
         chartsAPI.getData().then(response => {
-            console.log('reducer', response.data)
+            //console.log('reducer', response.data)
             dispatch(setData(response.data));
         });
     }

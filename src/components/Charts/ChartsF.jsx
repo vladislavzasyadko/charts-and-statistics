@@ -3,8 +3,9 @@ import { Line } from 'react-chartjs-2';
 
 
 let ChartsF = (props) => {
+    console.log(props.data)
     return (
-        <div>
+        <div style={{width: '500px', height: '350px'}}>
             <Line
                 options={{
                     type: 'line',
