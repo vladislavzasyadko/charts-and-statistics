@@ -156,15 +156,6 @@ class ChartsContainer extends React.Component {
     return <div>{data.map(dataset => 
         <ChartsF key={JSON.stringify(dataset)} data={dataset}/>
     )}
-    <ChartsF data={{
-        labels: Array(12).fill(0),
-        datasets: [
-            {
-                label: `${12}`,
-                borderColor: "red",
-                data: [21,45, 45, 45, 23, 34, 12, 1, 2, 3, 4, ],
-                display: 'false'
-            }]}}/>
     </div>
   }
 }

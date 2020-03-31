@@ -1,11 +1,12 @@
 import React from 'react';
 import { Line } from 'react-chartjs-2';
+import h from './Charts.module.scss'
 
 
 let ChartsF = (props) => {
     console.log(props.data)
     return (
-        <div style={{width: '500px', height: '350px'}}>
+        <div className={h.container}>
             <Line
                 options={{
                     type: 'line',
