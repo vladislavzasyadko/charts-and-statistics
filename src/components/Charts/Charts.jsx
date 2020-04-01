@@ -5,6 +5,10 @@ import h from './Charts.module.scss'
 
 class Charts extends React.Component {
 
+    state = {
+        hovered:false,
+    }
+
     handleClick = () => {
         let max = Math.max(...this.props.data.datasets[0].data)
         let min = Math.min(...this.props.data.datasets[0].data)
@@ -28,16 +32,36 @@ class Charts extends React.Component {
         return {radiuses: radiuses, colors: colors}
     }
 
-    pointColorIdentification = () => {
-
+    showAverageValue = () => {
+        const array = this.props.data.datasets[0].data;
+        const reducer = (accumulator, currentValue) => accumulator + currentValue;
+        let sum = array.reduce(reducer)
+        return parseInt(sum/array.length)
     }
+
+    setHovered = () => {
+        this.setState({
+            hovered: true,
+        })
+    }
+
+    unsetHovered = () => {
+        this.setState({
+            hovered: false,
+        })
+    }
+
 
     render() {
         let info = this.radiusCalculation()
+        let average = this.showAverageValue()
         return (
-            <div style={{border: this.props.active ? '2px solid #6EC168':'none'}} 
+            <div onMouseEnter={this.setHovered}
+                onMouseLeave={this.unsetHovered}
+                style={{border: this.props.active ? '2px solid #6EC168':'none'}} 
                 className={h.container} 
                 onClick={this.handleClick}>
+                {this.state.hovered && <div className={h.average}>avg: {average}</div>}
                 <Line
                     options={{
                         type: 'line',
@@ -47,7 +71,7 @@ class Charts extends React.Component {
                                 fill: false
                             },
                             point: {
-                                radius: info.radiuses,//[...Array(23).fill(4), 5],
+                                radius: info.radiuses,
                                 backgroundColor: info.colors
                             }
                         },

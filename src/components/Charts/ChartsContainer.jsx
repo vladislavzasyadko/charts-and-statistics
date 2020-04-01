@@ -41,8 +41,6 @@ class ChartsContainer extends React.Component {
                 }
             })
         }
-
-        //alert(data)
     }
 
     parseData = () => {
