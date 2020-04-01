@@ -7,8 +7,42 @@ import Charts from "./Charts";
 
 class ChartsContainer extends React.Component {
 
+    state = {
+        chartid:'',
+        scaleMode: false,
+        scale: {
+            min: 0,
+            max: 0,
+        }
+    }
+
     componentDidMount() {
         this.props.getData();
+    }
+
+    scaleAllToOne = (min, max, chartid) => {
+        console.log('limits', min, max)
+        if (this.state.chartid === chartid) {
+            this.setState({
+                chartid:'',
+                scaleMode: false,
+                scale: {
+                    min: min,
+                    max: max,
+                }
+            })
+        } else {
+            this.setState({
+                chartid: chartid,
+                scaleMode: true,
+                scale: {
+                    min: min,
+                    max: max,
+                }
+            })
+        }
+
+        //alert(data)
     }
 
     parseData = () => {
@@ -62,25 +96,45 @@ class ChartsContainer extends React.Component {
                             display: 'false'
                         }]
                 }
+
                 allDataArray.push(data);
             })
         });
 
         console.log('ME HAB ALL DATA ', allDataArray)
 
-        // Amax = AData.indexOf(Math.max(AData));
-        // AAmax = AAData.indexOf(Math.max(AAData));
-        // AAAmax = AAAData.indexOf(Math.max(AAAData));
+        // Amax = AData.indexOf(Math.max(...AData));
+        // AAmax = AAData.indexOf(Math.max(...AAData));
+        // AAAmax = AAAData.indexOf(Math.max(...AAAData));
 
         return allDataArray;
     }
 
     render() {
+        console.log('render')
         let data = this.parseData()
         return <div>
-            {data.map(dataset =>
-            <Charts key={JSON.stringify(dataset)} data={dataset} />
-            )}
+            <h1>Charts</h1>
+            {!this.state.scaleMode &&
+                <div>
+                    {data.map(dataset =>
+                        <Charts scaleAllToOne={this.scaleAllToOne} key={JSON.stringify(dataset)} data={dataset}
+                            chartid={dataset.datasets[0].label}
+                            max={Math.max(...dataset.datasets[0].data)}
+                            min={Math.min(...dataset.datasets[0].data)}
+                            active={false} />
+                    )}
+                </div>}
+            {this.state.scaleMode &&
+                <div>
+                    {data.map(dataset =>
+                        <Charts scaleAllToOne={this.scaleAllToOne} key={JSON.stringify(dataset)} data={dataset}
+                            chartid={dataset.datasets[0].label}
+                            max={this.state.scale.max}
+                            min={this.state.scale.min}
+                            active={dataset.datasets[0].label === this.state.chartid} />
+                    )}
+                </div>}
         </div>
     }
 }
