@@ -58,8 +58,6 @@ class ChartsContainer extends React.Component {
             }
         })
 
-        //console.log('ME SORTED', sortedData)
-        this.data = sortedData;
         let allDataArray = []
 
         sortedData.forEach((value, key) => {
@@ -76,12 +74,11 @@ class ChartsContainer extends React.Component {
                     }
                 })
             }
-            //console.log(`global map ${key} `, regionMap)
+            
             let country = key;
             regionMap.forEach((value, key) => {
                 let dataset = []
                 dataset = [...regionMap.get(key)]
-                //console.log(`I am dataset for ${country} ${key} `,dataset)
                 let color = '#EF666A';
                 if (dataset[0] < dataset[dataset.length - 1]) {
                     color = '#6EC168'
@@ -101,12 +98,6 @@ class ChartsContainer extends React.Component {
             })
         });
 
-        console.log('ME HAB ALL DATA ', allDataArray)
-
-        // Amax = AData.indexOf(Math.max(...AData));
-        // AAmax = AAData.indexOf(Math.max(...AAData));
-        // AAAmax = AAAData.indexOf(Math.max(...AAAData));
-
         return allDataArray;
     }
 
@@ -114,11 +105,13 @@ class ChartsContainer extends React.Component {
         console.log('render')
         let data = this.parseData()
         return <div>
-            <h1>Charts</h1>
+            <h1 style={{textAlign:'center'}}>Charts</h1>
             {!this.state.scaleMode &&
                 <div>
                     {data.map(dataset =>
-                        <Charts scaleAllToOne={this.scaleAllToOne} key={JSON.stringify(dataset)} data={dataset}
+                        <Charts scaleAllToOne={this.scaleAllToOne} 
+                            key={JSON.stringify(dataset)} 
+                            data={dataset}
                             chartid={dataset.datasets[0].label}
                             max={Math.max(...dataset.datasets[0].data)}
                             min={Math.min(...dataset.datasets[0].data)}
@@ -128,7 +121,9 @@ class ChartsContainer extends React.Component {
             {this.state.scaleMode &&
                 <div>
                     {data.map(dataset =>
-                        <Charts scaleAllToOne={this.scaleAllToOne} key={JSON.stringify(dataset)} data={dataset}
+                        <Charts scaleAllToOne={this.scaleAllToOne} 
+                            key={JSON.stringify(dataset)} 
+                            data={dataset}
                             chartid={dataset.datasets[0].label}
                             max={this.state.scale.max}
                             min={this.state.scale.min}
