@@ -43,6 +43,14 @@ class ChartsContainer extends React.Component {
         }
     }
 
+    setChartColor = (dataset) => {
+        let color = '#EF666A';
+                if (dataset[0] < dataset[dataset.length - 1]) {
+                    color = '#6EC168'
+                }
+        return color
+       }
+
     parseData = () => {
 
         let sortedData = new Map();
@@ -75,12 +83,9 @@ class ChartsContainer extends React.Component {
             
             let country = key;
             regionMap.forEach((value, key) => {
-                let dataset = []
-                dataset = [...regionMap.get(key)]
-                let color = '#EF666A';
-                if (dataset[0] < dataset[dataset.length - 1]) {
-                    color = '#6EC168'
-                }
+                
+                let dataset = [...regionMap.get(key)]
+                let color = this.setChartColor(dataset)
                 let data = {
                     labels: Array(dataset.length + 1).fill(0),
                     datasets: [
