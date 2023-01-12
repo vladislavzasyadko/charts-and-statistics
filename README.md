@@ -1,7 +1,7 @@
 
 ## A Chart JS project
 
-This App is getting data from [here](https://github.com/kirillzorin/internship2020/blob/master/data.json) and parsing it into individual data arrays by chosen category.
+This App is getting data from [here](https://github.com/kirillzorin/internship2020/blob/master/data.json)!!!(data is not available anymore :( ) and parsing it into individual data arrays by chosen category.
 
 * If the last value of the chart is bigger than the first one - the chart is green, otherwise - it's red.
 * Minimal value is marked red, maximum - green, the last one is blue.
